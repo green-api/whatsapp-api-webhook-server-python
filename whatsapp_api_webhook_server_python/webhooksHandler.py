@@ -4,7 +4,7 @@ from http.server import BaseHTTPRequestHandler
 from whatsapp_api_webhook_server_python.webhooks import Webhooks
 
 
-class WebhooksHTTPRequestHandler(BaseHTTPRequestHandler):
+class webhooksHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         length = self.headers['Content-Length']
@@ -29,7 +29,7 @@ class WebhooksHTTPRequestHandler(BaseHTTPRequestHandler):
         Webhooks.webhookProccessing(body, self.onEvent)
   
 def startServer(host: str, port: int, onEvent):
-    webhookHandler = WebhooksHTTPRequestHandler
-    webhookHandler.onEvent = onEvent
-    httpd = HTTPServer((host, port), webhookHandler)
+    Handler = webhooksHandler
+    Handler.onEvent = onEvent
+    httpd = HTTPServer((host, port), Handler)
     httpd.serve_forever()
