@@ -6,7 +6,7 @@ with open("README.md") as file:
 setuptools.setup(
     name="whatsapp-api-webhook-server-python",
     version="0.0.3",
-    install_requires=[],
+    install_requires=['requests'],
     author="Ivan Sadovy",
     author_email="sadiv@bk.ru",
     description="This library helps you easily create a python '\
