@@ -1,9 +1,9 @@
 from datetime import datetime
-from io import BytesIO, TextIOBase
 import json
 
 import whatsapp_api_webhook_server_python.webhooksHTTPRequestHandler as webhooksHTTPRequestHandler
 from whatsapp_api_webhook_server_python.webhooks import TypeWebhook as TypeWebhook
+
 
 def onEvent(webhookHandler: webhooksHTTPRequestHandler, typeWebhook: str, body):
     if typeWebhook == TypeWebhook.INCOMING_MESSAGE_RECEIVED.value:
