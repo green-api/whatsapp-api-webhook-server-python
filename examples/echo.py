@@ -1,31 +1,30 @@
 from datetime import datetime
 import json
 
-import whatsapp_api_webhook_server_python.webhooksHTTPRequestHandler as webhooksHTTPRequestHandler
-from whatsapp_api_webhook_server_python.webhooks import TypeWebhook as TypeWebhook
+import whatsapp_api_webhook_server_python.webhooksHandler as webhooksHandler
 
 
-def onEvent(webhookHandler: webhooksHTTPRequestHandler, typeWebhook: str, body):
-    if typeWebhook == TypeWebhook.INCOMING_MESSAGE_RECEIVED.value:
+def onEvent(webhookHandler: webhooksHandler, typeWebhook: str, body):
+    if typeWebhook == 'incomingMessageReceived':
         onIncomingMessageReceived(webhookHandler, body)      
-    elif typeWebhook == TypeWebhook.DEVICE_INFO.value:   
+    elif typeWebhook == 'deviceInfo':   
         onDeviceInfo(webhookHandler, body)              
-    elif typeWebhook == TypeWebhook.INCOMING_CALL.value:
+    elif typeWebhook == 'incomingCall':
         onIncomingCall(webhookHandler, body)
-    elif typeWebhook == TypeWebhook.INCOMING_MESSAGE_RECEIVED.value:
+    elif typeWebhook == 'incomingMessageReceived':
         onIncomingMessageReceived(webhookHandler, body)
-    elif typeWebhook == TypeWebhook.OUTGOING_API_MESSAGE_RECEIVED.value:
+    elif typeWebhook == 'outgoingAPIMessageReceived':
         onOutgoingAPIMessageReceived(webhookHandler, body)
-    elif typeWebhook == TypeWebhook.OUTGOING_MESSAGE_RECEIVED.value:
+    elif typeWebhook == 'outgoingMessageReceived':
         onOutgoingMessageReceived(webhookHandler, body)
-    elif typeWebhook == TypeWebhook.OUTGOING_MESSAGE_STATUS.value:
+    elif typeWebhook == 'outgoingMessageStatus':
         onOutgoingMessageStatus(webhookHandler, body)
-    elif typeWebhook == TypeWebhook.STATE_INSTANCE_CHANGED.value:
+    elif typeWebhook == 'stateInstanceChanged':
         onStateInstanceChanged(webhookHandler, body)
-    elif typeWebhook == TypeWebhook.STATUS_INSTANCE_CHANGED.value:
+    elif typeWebhook == 'statusInstanceChanged':
         onStatusInstanceChanged(webhookHandler, body)
 
-def onIncomingMessageReceived(webhookHandler: webhooksHTTPRequestHandler, body: object):
+def onIncomingMessageReceived(webhookHandler: webhooksHandler, body: object):
     idMessage = body['idMessage']
     eventDate = datetime.fromtimestamp(body['timestamp'])
     senderData = body['senderData']
@@ -37,7 +36,7 @@ def onIncomingMessageReceived(webhookHandler: webhooksHTTPRequestHandler, body: 
     webhookHandler.wfile.write((50 * '-' + '\n').encode("utf-8"))
     webhookHandler.wfile.write(TextOut.encode("utf-8"))
 
-def onIncomingCall(webhookHandler: webhooksHTTPRequestHandler, body):
+def onIncomingCall(webhookHandler: webhooksHandler, body):
     idMessage = body['idMessage']
     eventDate = datetime.fromtimestamp(body['timestamp'])
     fromWho = body['from']
@@ -47,7 +46,7 @@ def onIncomingCall(webhookHandler: webhooksHTTPRequestHandler, body):
     webhookHandler.wfile.write((50 * '-' + '\n').encode("utf-8"))
     webhookHandler.wfile.write(TextOut.encode("utf-8"))
 
-def onDeviceInfo(webhookHandler: webhooksHTTPRequestHandler, body):
+def onDeviceInfo(webhookHandler: webhooksHandler, body):
     eventDate = datetime.fromtimestamp(body['timestamp'])
     deviceData = body['deviceData']
     TextOut = 'At ' + str(eventDate) + ': ' \
@@ -55,7 +54,7 @@ def onDeviceInfo(webhookHandler: webhooksHTTPRequestHandler, body):
     webhookHandler.wfile.write((50 * '-' + '\n').encode("utf-8"))
     webhookHandler.wfile.write(TextOut.encode("utf-8"))
 
-def onOutgoingMessageReceived(webhookHandler: webhooksHTTPRequestHandler, body):
+def onOutgoingMessageReceived(webhookHandler: webhooksHandler, body):
     idMessage = body['idMessage']
     eventDate = datetime.fromtimestamp(body['timestamp'])
     senderData = body['senderData']
@@ -67,7 +66,7 @@ def onOutgoingMessageReceived(webhookHandler: webhooksHTTPRequestHandler, body):
     webhookHandler.wfile.write((50 * '-' + '\n').encode("utf-8"))
     webhookHandler.wfile.write(TextOut.encode("utf-8"))
 
-def onOutgoingAPIMessageReceived(webhookHandler: webhooksHTTPRequestHandler, body):
+def onOutgoingAPIMessageReceived(webhookHandler: webhooksHandler, body):
     idMessage = body['idMessage']
     eventDate = datetime.fromtimestamp(body['timestamp'])
     senderData = body['senderData']
@@ -79,7 +78,7 @@ def onOutgoingAPIMessageReceived(webhookHandler: webhooksHTTPRequestHandler, bod
     webhookHandler.wfile.write((50 * '-' + '\n').encode("utf-8"))
     webhookHandler.wfile.write(TextOut.encode("utf-8"))
 
-def onOutgoingMessageStatus(webhookHandler: webhooksHTTPRequestHandler, body):
+def onOutgoingMessageStatus(webhookHandler: webhooksHandler, body):
     idMessage = body['idMessage']
     status = body['status']
     eventDate = datetime.fromtimestamp(body['timestamp'])
@@ -87,7 +86,7 @@ def onOutgoingMessageStatus(webhookHandler: webhooksHTTPRequestHandler, body):
     webhookHandler.wfile.write((50 * '-' + '\n').encode("utf-8"))
     webhookHandler.wfile.write(TextOut.encode("utf-8"))
 
-def onStateInstanceChanged(webhookHandler: webhooksHTTPRequestHandler, body):
+def onStateInstanceChanged(webhookHandler: webhooksHandler, body):
     eventDate = datetime.fromtimestamp(body['timestamp'])
     stateInstance = body['stateInstance']
     TextOut = 'At ' + str(eventDate) + ' state instance = ' \
@@ -95,7 +94,7 @@ def onStateInstanceChanged(webhookHandler: webhooksHTTPRequestHandler, body):
     webhookHandler.wfile.write((50 * '-' + '\n').encode("utf-8"))
     webhookHandler.wfile.write(TextOut.encode("utf-8"))
 
-def onStatusInstanceChanged(webhookHandler: webhooksHTTPRequestHandler, body):
+def onStatusInstanceChanged(webhookHandler: webhooksHandler, body):
     eventDate = datetime.fromtimestamp(body['timestamp'])
     statusInstance = body['statusInstance']
     TextOut = 'At ' + str(eventDate) + ' status instance = ' \
@@ -104,7 +103,7 @@ def onStatusInstanceChanged(webhookHandler: webhooksHTTPRequestHandler, body):
     webhookHandler.wfile.write(TextOut.encode("utf-8"))
 
 def main():
-    webhooksHTTPRequestHandler.startServer('127.0.0.1', 8000, onEvent)
+    webhooksHandler.startServer('127.0.0.1', 8000, onEvent)
 
 if __name__ == "__main__":
     main()
