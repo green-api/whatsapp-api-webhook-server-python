@@ -28,4 +28,9 @@ webhooksHandler.startServer('127.0.0.1', 8000, onEvent)
 ```
 
 onEvent - метод обработки вебхуков, который определяет разработчик.
+В методе должно быть три параметра:
+- webhooksHandler - экземляр класса библиотеки
+- typeWebhook - тип вебхука
+- body - тело сообщения
+
 См. пример [echo.py](https://github.com/green-api/whatsapp-api-webhook-server-python/blob/master/examples/echo.py)
