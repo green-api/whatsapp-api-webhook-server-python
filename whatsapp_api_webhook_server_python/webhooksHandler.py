@@ -1,35 +1,46 @@
-from http.server import HTTPServer
-from http.server import BaseHTTPRequestHandler
+import tornado.ioloop
+import tornado.web
 
 from whatsapp_api_webhook_server_python.webhooks import Webhooks
 
 
-class webhooksHandler(BaseHTTPRequestHandler):
+class WebhooksHandler(tornado.web.RequestHandler):
 
-    def do_GET(self):
-        length = self.headers['Content-Length']
+    def get(self):
+        length = self.request.headers.get('Content-Length')
         if length != None:
-            content_length = int()
-            body = self.rfile.read(content_length)
-            Webhooks.webhookProccessing(body, self.onEvent)
+            dataBytes = self.request.body
+            dataText = dataBytes.decode("utf-8", 'ignore')
+            Webhooks.webhookProccessing(dataText, self.onEvent)
         else:
-            self.send_response(200)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()
+            self.set_status(200)
+            self.set_header('Content-type', 'text/html')
 
-    def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        dataBytes = self.rfile.read(content_length)
-        dataText = dataBytes.decode("utf-8", 'ignore')
-        Webhooks.webhookProccessing(dataText, self.onEvent)
+    def post(self):
+        length = self.request.headers.get('Content-Length')
+        if length != None:
+            dataBytes = self.request.body
+            dataText = dataBytes.decode("utf-8", 'ignore')
+            Webhooks.webhookProccessing(dataText, self.onEvent)
 
-    def do_DELETE(self):
-        content_length = int(self.headers['Content-Length'])
-        body = self.rfile.read(content_length)
-        Webhooks.webhookProccessing(body, self.onEvent)
+    def delete(self):
+        length = self.request.headers.get('Content-Length')
+        if length != None:
+            dataBytes = self.request.body
+            dataText = dataBytes.decode("utf-8", 'ignore')
+            Webhooks.webhookProccessing(dataText, self.onEvent)
   
-def startServer(host: str, port: int, onEvent):
-    Handler = webhooksHandler
-    Handler.onEvent = onEvent
-    httpd = HTTPServer((host, port), Handler)
-    httpd.serve_forever()
+class Application(tornado.web.Application):
+    def __init__(self, handler):
+        handlers = [
+            (r"/", handler),
+        ]
+        tornado.web.Application.__init__(self, handlers)
+
+def startServer(host: str, port: int, onEvent, startLoop: bool = True):
+    handler = WebhooksHandler
+    handler.onEvent = onEvent
+    http_server = tornado.httpserver.HTTPServer(Application(handler))
+    http_server.listen(port=port, address=host)
+    if startLoop:
+        tornado.ioloop.IOLoop.instance().start()
