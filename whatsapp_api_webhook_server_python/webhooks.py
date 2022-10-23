@@ -8,6 +8,5 @@ class Webhooks():
             data = json.loads(dataText)
         except:
            return 
-        body = data['body']
-        typeWebhook = body['typeWebhook']
-        onEvent(typeWebhook, body)
+        typeWebhook = data['typeWebhook']
+        onEvent(typeWebhook, data)

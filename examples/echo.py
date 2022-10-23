@@ -34,8 +34,7 @@ def onIncomingMessageReceived(webhookHandler: handler.WebhooksHandler, body: obj
         + json.dumps(senderData, ensure_ascii=False) \
         + ' message = ' + json.dumps(messageData, ensure_ascii=False)
     webhookHandler.set_status(200)
-    webhookHandler.write((50 * '-' + '\n').encode("utf-8"))
-    webhookHandler.write(TextOut.encode("utf-8"))
+    print(TextOut)
 
 def onIncomingCall(webhookHandler: handler.WebhooksHandler, body):
     idMessage = body['idMessage']
@@ -45,8 +44,7 @@ def onIncomingCall(webhookHandler: handler.WebhooksHandler, body):
         + 'Call from ' + fromWho \
         + ' at ' + str(eventDate)
     webhookHandler.set_status(200)
-    webhookHandler.write((50 * '-' + '\n').encode("utf-8"))
-    webhookHandler.write(TextOut.encode("utf-8"))
+    print(TextOut)
 
 def onDeviceInfo(webhookHandler: handler.WebhooksHandler, body):
     eventDate = datetime.fromtimestamp(body['timestamp'])
@@ -54,8 +52,7 @@ def onDeviceInfo(webhookHandler: handler.WebhooksHandler, body):
     TextOut = 'At ' + str(eventDate) + ': ' \
         + json.dumps(deviceData, ensure_ascii=False)
     webhookHandler.set_status(200)
-    webhookHandler.write((50 * '-' + '\n').encode("utf-8"))
-    webhookHandler.write(TextOut.encode("utf-8"))
+    print(TextOut)
 
 def onOutgoingMessageReceived(webhookHandler: handler.WebhooksHandler, body):
     idMessage = body['idMessage']
@@ -67,8 +64,7 @@ def onOutgoingMessageReceived(webhookHandler: handler.WebhooksHandler, body):
         + json.dumps(senderData, ensure_ascii=False) \
         + ' message = ' + json.dumps(messageData, ensure_ascii=False)
     webhookHandler.set_status(200)
-    webhookHandler.write((50 * '-' + '\n').encode("utf-8"))
-    webhookHandler.write(TextOut.encode("utf-8"))
+    print(TextOut)
 
 def onOutgoingAPIMessageReceived(webhookHandler: handler.WebhooksHandler, body):
     idMessage = body['idMessage']
@@ -80,8 +76,7 @@ def onOutgoingAPIMessageReceived(webhookHandler: handler.WebhooksHandler, body):
         + json.dumps(senderData, ensure_ascii=False) + \
         ' message = ' + json.dumps(messageData, ensure_ascii=False)
     webhookHandler.set_status(200)
-    webhookHandler.write((50 * '-' + '\n').encode("utf-8"))
-    webhookHandler.write(TextOut.encode("utf-8"))
+    print(TextOut)
 
 def onOutgoingMessageStatus(webhookHandler: handler.WebhooksHandler, body):
     idMessage = body['idMessage']
@@ -89,8 +84,7 @@ def onOutgoingMessageStatus(webhookHandler: handler.WebhooksHandler, body):
     eventDate = datetime.fromtimestamp(body['timestamp'])
     TextOut = idMessage + ': ' + str(eventDate) + ' status = ' + status
     webhookHandler.set_status(200)
-    webhookHandler.write((50 * '-' + '\n').encode("utf-8"))
-    webhookHandler.write(TextOut.encode("utf-8"))
+    print(TextOut)
 
 def onStateInstanceChanged(webhookHandler: handler.WebhooksHandler, body):
     eventDate = datetime.fromtimestamp(body['timestamp'])
@@ -98,8 +92,7 @@ def onStateInstanceChanged(webhookHandler: handler.WebhooksHandler, body):
     TextOut = 'At ' + str(eventDate) + ' state instance = ' \
         + json.dumps(stateInstance, ensure_ascii=False)
     webhookHandler.set_status(200)
-    webhookHandler.write((50 * '-' + '\n').encode("utf-8"))
-    webhookHandler.write(TextOut.encode("utf-8"))
+    print(TextOut)
 
 def onStatusInstanceChanged(webhookHandler: handler.WebhooksHandler, body):
     eventDate = datetime.fromtimestamp(body['timestamp'])
@@ -107,8 +100,7 @@ def onStatusInstanceChanged(webhookHandler: handler.WebhooksHandler, body):
     TextOut = 'At ' + str(eventDate) + ' status instance = ' \
         + json.dumps(statusInstance, ensure_ascii=False)
     webhookHandler.set_status(200)
-    webhookHandler.write((50 * '-' + '\n').encode("utf-8"))
-    webhookHandler.write(TextOut.encode("utf-8"))
+    print(TextOut)
 
 def main():
     handler.startServer('127.0.0.1', 8000, onEvent)
