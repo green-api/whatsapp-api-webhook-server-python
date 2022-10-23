@@ -5,7 +5,7 @@ with open("README.md") as file:
 
 setuptools.setup(
     name="whatsapp-api-webhook-server-python",
-    version="0.0.4",
+    version="0.0.5",
     install_requires=['tornado'],
     author="Ivan Sadovy",
     author_email="sadiv@bk.ru",

@@ -103,7 +103,7 @@ def onStatusInstanceChanged(webhookHandler: handler.WebhooksHandler, body):
     print(TextOut)
 
 def main():
-    handler.startServer('127.0.0.1', 8000, onEvent)
+    handler.startServer('127.0.0.1', 80, onEvent)
 
 if __name__ == "__main__":
     main()

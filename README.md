@@ -30,7 +30,7 @@ import whatsapp_api_webhook_server_python.webhooksHandler as webhooksHandler
 ## Запуск сервера
 
 ```
-webhooksHandler.startServer('127.0.0.1', 8000, onEvent)
+webhooksHandler.startServer('127.0.0.1', 80, onEvent)
 ```
 
 onEvent - метод обработки вебхуков, который определяет разработчик.
