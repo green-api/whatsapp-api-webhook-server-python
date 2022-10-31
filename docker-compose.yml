@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  whatsappapiwebhookserverpython:
+    image: whatsappapiwebhookserverpython
+    build:
+      context: .
+      dockerfile: ./Dockerfile
