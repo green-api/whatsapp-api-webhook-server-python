@@ -1,4 +1,4 @@
-FROM python:3.10-slim as base
+FROM ubuntu
 LABEL maintainer="Green API <support@green-api.com>"
 
 # Install dependencies
