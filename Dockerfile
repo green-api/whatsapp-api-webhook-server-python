@@ -1,23 +1,14 @@
-# For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.8-slim
+FROM python:3.10-slim as base
+LABEL maintainer="Green API <support@green-api.com>"
 
-# Keeps Python from generating .pyc files in the container
-ENV PYTHONDONTWRITEBYTECODE=1
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    wget
 
-# Turns off buffering for easier container logging
-ENV PYTHONUNBUFFERED=1
+WORKDIR /webhook-server
 
-# Install pip requirements
-COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
-
-WORKDIR /app
-COPY . /app
-
-# Creates a non-root user with an explicit UID and adds permission to access the /app folder
-# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
-USER appuser
-
-# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["python", "examples\echo.py"]
+# Install library
+RUN pip3 install whatsapp-api-webhook-server-python
+# Download example
+RUN wget https://raw.githubusercontent.com/green-api/whatsapp-api-webhook-server-python/master/examples/echo.py
