@@ -13,6 +13,5 @@ WORKDIR /webhook-server
 RUN pip3 install whatsapp-api-webhook-server-python
 # Download example
 RUN wget https://raw.githubusercontent.com/green-api/whatsapp-api-webhook-server-python/master/examples/echo.py
-RUN wget https://raw.githubusercontent.com/green-api/whatsapp-api-webhook-server-python/master/docker-compose.yml
 # Start server
 CMD [ "python3", "./echo.py" ]
