@@ -1,8 +1,33 @@
 version: '3.4'
 
+networks:
+  webhookserver-net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1500
+
 services:
   whatsapp_api_webhook_server_python:
-    image: greenapi/whatsapp-api-webhook-server-python
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    hostname: webhookserver
+    container_name: webhookserver
+    restart: unless-stopped
+    image: greenapi/whatsapp-api-webhook-server-python:latest
+    ports:
+      - "8080:80"
+    command: python3 ./echo.py
+    healthcheck:
+      test: curl -sS http://127.0.0.1:8080 || exit 1
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    volumes:
+      - ~/.webhookserver/config/:/usr/src/app/config
+      - ~/.webhookserver/logs/:/usr/src/app/logs
+      - ~/.webhookserver/data/:/usr/src/app/data
+    networks:
+      - "webhookserver-net"
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "14"
+        max-size: "10m"
