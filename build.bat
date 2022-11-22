@@ -1,0 +1,1 @@
+docker build . -t greenapi/whatsapp-api-webhook-server-python

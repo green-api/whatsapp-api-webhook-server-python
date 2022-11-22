@@ -14,16 +14,6 @@ services:
     image: greenapi/whatsapp-api-webhook-server-python:latest
     ports:
       - "8080:80"
-    command: python3 ./echo.py
-    healthcheck:
-      test: curl -sS http://127.0.0.1:8080 || exit 1
-      interval: 5s
-      timeout: 10s
-      retries: 3
-    volumes:
-      - ~/.webhookserver/config/:/usr/src/app/config
-      - ~/.webhookserver/logs/:/usr/src/app/logs
-      - ~/.webhookserver/data/:/usr/src/app/data
     networks:
       - "webhookserver-net"
     logging:
