@@ -11,6 +11,7 @@ WORKDIR /webhook-server
 
 # Install library
 RUN pip3 install whatsapp-api-webhook-server-python
+RUN apk add curl
 # Download example
 RUN wget https://raw.githubusercontent.com/green-api/whatsapp-api-webhook-server-python/master/examples/echo.py
 # Start server
