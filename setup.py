@@ -31,6 +31,7 @@ setup(
     ],
     license=(
         "Creative Commons Attribution-NoDerivatives 4.0 International"
+        " (CC BY-ND 4.0)"
     ),
     install_requires=["tornado==6.3.2"],
     python_requires=">=3.7"
