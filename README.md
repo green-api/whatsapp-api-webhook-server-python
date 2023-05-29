@@ -3,172 +3,195 @@
 [![Python application](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-app.yml)
 [![Upload Python Package](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-publish.yml/badge.svg)](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-publish.yml)
 
-Python библиотека для интеграции с мессенджером WhatsAPP через API сервиса [green-api.com](https://green-api.com). Чтобы воспользоваться библиотекой нужно получить регистрационный токен и id аккаунта в [личном кабинете](https://console.green-api.com). Есть бесплатный тариф аккаунта разработчика.
+- [Документация на русском языке](docs/README_RU.md).
+
+whatsapp-api-webhook-server-python is a library for integration with WhatsApp messenger using the API
+service [green-api.com](https://green-api.com/en/). You should get a registration token and an account ID in
+your [personal cabinet](https://console.green-api.com/) to use the library. There is a free developer account tariff.
 
 ## API
 
-Документация к REST API находится по [ссылке](https://green-api.com/docs/api/). Библиотека является оберткой к REST API, поэтому документация по ссылке выше применима и к самой библиотеке.
+The documentation for the REST API can be found at the [link](https://green-api.com/en/docs/). The library is a wrapper
+for the REST API, so the documentation at the link above also applies.
 
-## Подготовка среды
+## Authorization
 
-На машине должен быть установлен Python 3 последней версии, который можно скачать 
-с официального сайта: [python.org](https://www.python.org/downloads/)
+To send a message or perform other Green API methods, the WhatsApp account in the phone app must be authorized. To
+authorize the account, go to your [cabinet](https://console.green-api.com/) and scan the QR code using the WhatsApp app.
 
-## Пример подготовки среды сервера на операционной системе Ubuntu
+## Examples of preparing the environment
 
-После создания машины для сервера нужно настроить на ней брандмауэр, установить необходимые компоненты и запустить сервер.
+### Example of preparing the environment for Ubuntu Server
 
-Ubuntu 20.04 и выше поставляются с предустановленным Python 3.
-Обновим систему:
-```
+#### Updating the system
+
+Update the system:
+
+```shell
 sudo apt update
-sudo apt -y upgrade
+sudo apt upgrade -y
 ```
 
-Нужно настроить правила брандмауэра. В Ubuntu брандмауэр UFW установлен по умолчанию, но если по какой-то причине он не установлен, установим:
-```
-sudo apt install ufw
+#### Firewall
+
+Set up the firewall:
+
+Allow the SSH connection:
+
+```shell
+sudo ufw allow ssh
 ```
 
-Сначала создадим правила брандмауэра по-умолчанию:
-```
+Base rules:
+
+```shell
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 ```
 
-Если мы сейчас активируем брандмауэр UFW, все входящие соединения будут запрещены.
-Чтобы после активации бранмауэра нам было доступно соединение по SSH нужно добавить правила:
-```
-sudo ufw allow ssh
-```
+Allow HTTP and HTTPS connections:
 
-Соединения HTTP на порту 80, которые используются веб-серверами без шифрования, с помощью команды:
-```
+```shell
 sudo ufw allow http
-```
-
-Соединения HTTPS на порту 443, которые используются веб-серверами с шифрованием, с помощью команды: 
-```
 sudo ufw allow https
 ```
 
-Если на вашем сервере имеется публичный сетевой интерфейс под названием eth0, вы можете разрешить трафик HTTP (порт 80) для этого интерфейса с помощью следующей команды:
-```
-sudo ufw allow in on eth0 to any port 80
-```
+Enable the firewall:
 
-Название сетевого интерфейса можно узнать с помощью команды:
-```
-ip addr
-```
-
-Активация брандмауэра UFW:
-```
+```shell
 sudo ufw enable
 ```
 
-Теперь наш сервер может принимать входящие запросы на указанный нами порт.
+#### Installation
 
-Установим систему управления пакетами pip, если он не содержиться в дистрибутиве ОС:
-```
-sudo apt install -y python3-pip
-```
+A package management system must be installed:
 
-Теперь можно устанавливать нашу библиотеку.
-
-Установка библиотеки:
-```
-pip3 install whatsapp-api-webhook-server-python
+```shell
+sudo apt install python3-pip
 ```
 
-Можно в качестве примера запустить на сервере наш скрипт echo.py, он будет выводить в консоль информацию о полученных вэбхуках:
+Library installation:
+
+```shell
+python3 -m pip install whatsapp-api-webhook-server-python
 ```
+
+As an example you can download and run [our script](examples/echo.py). The script sends all incoming notifications.
+
+```shell
 wget https://raw.githubusercontent.com/green-api/whatsapp-api-webhook-server-python/master/examples/echo.py
-python3 echo.py
 ```
 
-## Пример подготовки среды сервера на операционной системе Windows
-
-Для использования IIS (Internet Information Services) в качетсве веб-сервере требуется настроить конфигурационный файл web.config,
-чтобы служба IIS могла правильно выполнять код Python. Этот файл располагается в папке публикации вашего веб-сервера.
-Интерпритатор языка можно скачать с официального сайта [python.org](https://www.python.org/).
-
-После установки интерпритатора следует указать обработчик HttpPlatform в файле web.config. Этот обработчик будет передавать подключения в автономный процесс Python.
-
-Пример конфигурационного файла:
-
+```shell
+python3 -m echo.py
 ```
+
+### Example of preparing the environment for Windows Server
+
+#### Python installation
+
+Python must be installed on the server. [Python installation instructions](https://www.python.org/downloads/).
+
+#### Как настроить конфигурацию веб-сервера
+
+To use IIS (Internet Information Services) as a web server, you need to configure the configuration file `web.config` so
+that the IIS service can properly execute Python code. This file is located in the publication folder of your web
+server.
+
+After installing the interpreter, you should define the HttpPlatform handler in the `web.config` file. This handler will
+transfer connections to the standalone Python process.
+
+Example configuration file:
+
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
-  <system.webServer>
-    <handlers>
-      <add name="PythonHandler" path="*" verb="*" modules="httpPlatformHandler" resourceType="Unspecified"/>
-    </handlers>
-    <httpPlatform processPath="<Path-to-python>\python.exe"
-                  arguments="<Path-to-server-file>\echo.py
-                  stdoutLogEnabled="true"
-                  stdoutLogFile="<Path-to-log-file>\python.log"
-                  startupTimeLimit="60"
-                  processesPerApplication="16">
-      <environmentVariables>
-        <environmentVariable name="SOME_VARIABLE" value="%SOME_VAR%" />
-      </environmentVariables>
-    </httpPlatform>
-  </system.webServer>
+    <system.webServer>
+        <handlers>
+            <add name="PythonHandler" path="*" verb="*" modules="httpPlatformHandler" resourceType="Unspecified"/>
+        </handlers>
+        <httpPlatform arguments="<Path-to-server-file>\echo.py"
+                      processesPerApplication="16"
+                      processPath="<Path-to-python>\python.exe"
+                      startupTimeLimit="60"
+                      stdoutLogEnabled="true"
+                      stdoutLogFile="<Path-to-log-file>\python.log">
+            <environmentVariables>
+                <environmentVariable name="SOME_VARIABLE" value="%SOME_VAR%"/>
+            </environmentVariables>
+        </httpPlatform>
+    </system.webServer>
 </configuration>
 ```
 
-"\<Path-to-python\>" - путь к исполняемому файлу интерпритатора Python
+- `<Path-to-python>` - the path to the executable file of the Python interpreter;
+- `<Path-to-server-file>` - the path to the server executable file (e.g. echo.py from the example);
+- `<Path-to-log-file>` - the path to the log file.
 
-"\<Path-to-server-file\>" - путь к исполняемому файлу сервера (например echo.py из примера к библиотеке)
+You will also need to open the corresponding port to the external network by setting the firewall settings (Advanced
+Options -> Rules for incoming connections -> Create Rule -> Rule Type = Port Protocols, Port -> TCP, specify the
+firewall settings. options -> Rules for incoming connections -> Create Rule -> Rule Type = Port, Protocols and Port ->
+TCP, specify port, Action -> Allow connection).
 
-"\<Path-to-log-file\>" - путь к файл логов
+### An example of deploying a server environment using Docker
 
-Также потребуется открыть соответствующий порт во внешнюю сеть, установив настройка брандмауэра (Дополнительные параметры -> Правила для входящих подключений -> Создать правило -> Тип правила = Порт, Протоколы и порт -> TCP, указать порт, Действие -> Разрешить соединение)
+The machine should have Docker installed.
 
-## Пример разворачивания среды сервера в контейнере Docker
-
-На машине должен быть установлен docker.
-
-Для получения образа из DockerHub воспользуемся командой:
+To get an image from the Docker Hub, you need to write a command:
 
 ```
 sudo docker pull greenapi/whatsapp-api-webhook-server-python
 ```
 
-Запустим образ в контейнере с указанием порта и отображением консоли:
+Run the image in a container with the port and the console displayed:
 
 ```
 sudo docker run --publish 8080:80 -it greenapi/whatsapp-api-webhook-server-python
 ```
 
-Вместо порта 8080 можно указать любой свободный порт машины. В консоле [кабинета Green-Api](https://console.green-api.com/instanceList/) нужно будет указать IP (или внешнее имя машины) с указанием этого порта.
+You can specify any free machine port instead of port 8080. In [personal cabinet](https://console.green-api.com/) you
+will need to specify the IP (or external machine name) with this port.
 
-После запуска контейнера в консоль контейнера должны приходить вебхуки.
+After starting the container, the container console should receive incoming notifications.
 
+## Running the server
 
-## Запуск сервера
+To use in your solutions, simply import the webhooksHandler class.
 
-Для использования в ваших решениях достаточно импортировать класс webhooksHandler
 ```
 import whatsapp_api_webhook_server_python.webhooksHandler as webhooksHandler
 ```
 
-Старт сервера:
+Start of the server:
+
 ```
 webhooksHandler.startServer('127.0.0.1', 80, onEvent)
 ```
 
-onEvent - метод обработки вебхуков, который определяет разработчик.
-В методе должно быть три параметра:
-- webhooksHandler - экземляр класса библиотеки
-- typeWebhook - тип вебхука
-- body - тело сообщения
+The `onEvent` parameter is a handler function that should be created by the developer.
 
-См. пример [echo.py](https://github.com/green-api/whatsapp-api-webhook-server-python/blob/master/examples/echo.py)
+Method parameters:
 
-## Перенаправление вебхуков на сервер
+| Parameter       | Description                   |
+|-----------------|-------------------------------|
+| webhooksHandler | library class instance        |
+| typeWebhook     | type of incoming notification |
+| body            | notification body             |
 
-Для перенаправления вебхуков событий WhatsApp нужно в консоле [кабинета Green-Api](https://console.green-api.com/instanceList/) установить для инстанса адрес отправки уведомлений:
+Example: [echo.py](examples/echo.py).
 
-![`Адрес отправки уведомлений`](media/ChangeWebhookServerURL.png)
+## How to reroute incoming notifications to a web server
+
+To reroute incoming notifications, you need to set the notification sending address (URL)
+in [personal cabinet](https://console.green-api.com/).
+
+## Service methods documentation
+
+[Service methods documentation](https://green-api.com/en/docs/api/)
+
+## License
+
+Licensed under [
+Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
+](https://creativecommons.org/licenses/by-nd/4.0/) terms.
+Please see file [LICENSE](LICENSE).
