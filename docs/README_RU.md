@@ -1,7 +1,10 @@
 # whatsapp-api-webhook-server-python
 
-[![Python application](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-app.yml)
-[![Upload Python Package](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-publish.yml/badge.svg)](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-publish.yml)
+![](https://img.shields.io/badge/license-CC%20BY--ND%204.0-green)
+![](https://img.shields.io/pypi/status/whatsapp-api-webhook-server-python)
+![](https://img.shields.io/pypi/pyversions/whatsapp-api-webhook-server-python)
+![](https://img.shields.io/github/actions/workflow/status/green-api/whatsapp-api-webhook-server-python/python-app.yml)
+![](https://img.shields.io/pypi/dm/whatsapp-api-webhook-server-python)
 
 whatsapp-api-webhook-server-python - библиотека для интеграции с мессенджером WhatsApp через API
 сервиса [green-api.com](https://green-api.com/). Чтобы воспользоваться библиотекой, нужно получить регистрационный токен
@@ -193,5 +196,5 @@ webhooksHandler.startServer('127.0.0.1', 80, onEvent)
 ## Лицензия
 
 Лицензировано на условиях [
-Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
+Creative Commons Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
 ](https://creativecommons.org/licenses/by-nd/4.0/). [LICENSE](../LICENSE).
