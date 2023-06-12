@@ -1,9 +1,12 @@
 # whatsapp-api-webhook-server-python
 
-[![Python application](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-app.yml)
-[![Upload Python Package](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-publish.yml/badge.svg)](https://github.com/green-api/whatsapp-api-webhook-server-python/actions/workflows/python-publish.yml)
+![](https://img.shields.io/badge/license-CC%20BY--ND%204.0-green)
+![](https://img.shields.io/pypi/status/whatsapp-api-webhook-server-python)
+![](https://img.shields.io/pypi/pyversions/whatsapp-api-webhook-server-python)
+![](https://img.shields.io/github/actions/workflow/status/green-api/whatsapp-api-webhook-server-python/python-app.yml)
+![](https://img.shields.io/pypi/dm/whatsapp-api-webhook-server-python)
 
-- [Документация на русском языке](docs/README_RU.md).
+- [Документация на русском языке](https://github.com/green-api/whatsapp-api-webhook-server-python/blob/master/docs/README_RU.md).
 
 whatsapp-api-webhook-server-python is a library for integration with WhatsApp messenger using the API
 service [green-api.com](https://green-api.com/en/). You should get a registration token and an account ID in
@@ -76,7 +79,9 @@ Library installation:
 python3 -m pip install whatsapp-api-webhook-server-python
 ```
 
-As an example you can download and run [our script](examples/echo.py). The script sends all incoming notifications.
+As an example you can download and run [our script](
+https://github.com/green-api/whatsapp-api-webhook-server-python/blob/master/examples/echo.py
+). The script sends all incoming notifications.
 
 ```shell
 wget https://raw.githubusercontent.com/green-api/whatsapp-api-webhook-server-python/master/examples/echo.py
@@ -178,7 +183,7 @@ Method parameters:
 | typeWebhook     | type of incoming notification |
 | body            | notification body             |
 
-Example: [echo.py](examples/echo.py).
+Example: [echo.py](https://github.com/green-api/whatsapp-api-webhook-server-python/blob/master/examples/echo.py).
 
 ## How to reroute incoming notifications to a web server
 
@@ -192,6 +197,6 @@ in [personal cabinet](https://console.green-api.com/).
 ## License
 
 Licensed under [
-Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
+Creative Commons Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
 ](https://creativecommons.org/licenses/by-nd/4.0/) terms.
-Please see file [LICENSE](LICENSE).
+Please see file [LICENSE](https://github.com/green-api/whatsapp-api-webhook-server-python/blob/master/LICENSE).
