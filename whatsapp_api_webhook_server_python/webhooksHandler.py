@@ -8,7 +8,7 @@ class WebhooksHandler(tornado.web.RequestHandler):
 
     def get(self):
         length = self.request.headers.get('Content-Length')
-        if length != None:
+        if length is not None:
             dataBytes = self.request.body
             dataText = dataBytes.decode("utf-8", 'ignore')
             Webhooks.webhookProccessing(dataText, self.onEvent)
@@ -18,24 +18,26 @@ class WebhooksHandler(tornado.web.RequestHandler):
 
     def post(self):
         length = self.request.headers.get('Content-Length')
-        if length != None:
+        if length is not None:
             dataBytes = self.request.body
             dataText = dataBytes.decode("utf-8", 'ignore')
             Webhooks.webhookProccessing(dataText, self.onEvent)
 
     def delete(self):
         length = self.request.headers.get('Content-Length')
-        if length != None:
+        if length is not None:
             dataBytes = self.request.body
             dataText = dataBytes.decode("utf-8", 'ignore')
             Webhooks.webhookProccessing(dataText, self.onEvent)
-  
+
+
 class Application(tornado.web.Application):
     def __init__(self, handler):
         handlers = [
             (r"/", handler),
         ]
         tornado.web.Application.__init__(self, handlers)
+
 
 def startServer(host: str, port: int, onEvent, startLoop: bool = True):
     handler = WebhooksHandler
