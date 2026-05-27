@@ -28,7 +28,6 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
@@ -44,5 +43,5 @@ setup(
         " (CC BY-ND 4.0)"
     ),
     install_requires=["tornado>=6.5.5"],
-    python_requires=">=3.8"
+    python_requires=">=3.9"
 )
