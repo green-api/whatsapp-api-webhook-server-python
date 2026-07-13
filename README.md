@@ -1,5 +1,11 @@
 # whatsapp-api-webhook-server-python
 
+> [!WARNING]
+This package is deprecated.
+Please use [v2 version](https://github.com/green-api/whatsapp-api-webhook-server-python-v2) instead.
+
+---
+
 ![](https://img.shields.io/badge/license-CC%20BY--ND%204.0-green)
 ![](https://img.shields.io/pypi/status/whatsapp-api-webhook-server-python)
 ![](https://img.shields.io/pypi/pyversions/whatsapp-api-webhook-server-python)
