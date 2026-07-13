@@ -5,7 +5,7 @@ with open("README.md", encoding="UTF-8") as file:
 
 setup(
     name="whatsapp-api-webhook-server-python",
-    version="0.0.8",
+    version="0.0.9",
     description=(
         "This library helps you easily create"
         " a Python server endpoint to receive"
